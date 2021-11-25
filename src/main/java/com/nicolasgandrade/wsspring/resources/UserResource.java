@@ -1,21 +1,36 @@
 package com.nicolasgandrade.wsspring.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nicolasgandrade.wsspring.entities.User;
+import com.nicolasgandrade.wsspring.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 
+	@Autowired
+	private UserService service;
+	
 	@GetMapping //Significa que responde ao método get no caminho citado acima "/users"
-	public ResponseEntity<User> findAll() {
-		User u = new User(1L, "Maria", "maria@gmail.com", "999-999", "123456");//1L porque é long, exige o L na frente
-		return ResponseEntity.ok().body(u);
+	public ResponseEntity<List<User>> findAll() {
+		List<User> list = service.findAll();
+		
+		return ResponseEntity.ok().body(list);
 		//Este método já retorna em formato JSON
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id){ //A anotação envia o id passado na URL como parâmetro
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 }
