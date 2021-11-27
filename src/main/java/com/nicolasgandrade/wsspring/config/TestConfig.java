@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.nicolasgandrade.wsspring.entities.Category;
 import com.nicolasgandrade.wsspring.entities.Order;
 import com.nicolasgandrade.wsspring.entities.User;
 import com.nicolasgandrade.wsspring.entities.enums.OrderStatus;
+import com.nicolasgandrade.wsspring.repositories.CategoryRepository;
 import com.nicolasgandrade.wsspring.repositories.OrderRepository;
 import com.nicolasgandrade.wsspring.repositories.UserRepository;
 
@@ -23,12 +25,22 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	//Executa o código assim que a aplicação for iniciada
 	@Override
 	public void run(String... args) throws Exception {
 
 		//Instanciando os objetos a serem inseridos no banco
+		
+		Category cat1 = new Category(null, "Books");
+		Category cat2 = new Category(null, "Clothes");
+		Category cat3 = new Category(null, "Electronics");
+		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "999999", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "888888", "123456");
 		
