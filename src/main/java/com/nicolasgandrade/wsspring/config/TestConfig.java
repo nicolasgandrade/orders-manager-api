@@ -43,13 +43,28 @@ public class TestConfig implements CommandLineRunner{
 		Category cat1 = new Category(null, "Books");
 		Category cat2 = new Category(null, "Clothes");
 		Category cat3 = new Category(null, "Electronics");
+		Category cat4 = new Category(null, "For home");
 		
 		Product p1 = new Product (null, "The Lord of the Rings", "Lorem Ipsum", 15.0, "");
 		Product p2 = new Product (null, "IPhone13", "Lorem Ipsum", 450.0, "");
-		Product p3 = new Product (null, "1984", "Lorem Ipsum", 11.0, "");
+		Product p3 = new Product (null, "Television", "Lorem Ipsum", 350.0, "");
+		
+		//Salva as categorias e os produtos no banco
 		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+		
+		//Associa as categorias aos produtos salvos anteriormente
+		
+		p1.getCategories().add(cat1);
+		p2.getCategories().add(cat3);
+		//P3 pertence a DUAS categorias
+		p3.getCategories().add(cat3);
+		p3.getCategories().add(cat4);
+		
+		//Salva as alterações nos produtos
+		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+		// --> erro
 		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "999999", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "888888", "123456");
