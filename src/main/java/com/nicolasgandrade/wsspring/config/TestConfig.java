@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.nicolasgandrade.wsspring.entities.Category;
 import com.nicolasgandrade.wsspring.entities.Order;
+import com.nicolasgandrade.wsspring.entities.Product;
 import com.nicolasgandrade.wsspring.entities.User;
 import com.nicolasgandrade.wsspring.entities.enums.OrderStatus;
 import com.nicolasgandrade.wsspring.repositories.CategoryRepository;
 import com.nicolasgandrade.wsspring.repositories.OrderRepository;
+import com.nicolasgandrade.wsspring.repositories.ProductRepository;
 import com.nicolasgandrade.wsspring.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	//Executa o código assim que a aplicação for iniciada
 	@Override
@@ -39,7 +44,12 @@ public class TestConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Clothes");
 		Category cat3 = new Category(null, "Electronics");
 		
+		Product p1 = new Product (null, "The Lord of the Rings", "Lorem Ipsum", 15.0, "");
+		Product p2 = new Product (null, "IPhone13", "Lorem Ipsum", 450.0, "");
+		Product p3 = new Product (null, "1984", "Lorem Ipsum", 11.0, "");
+		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "999999", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "888888", "123456");
