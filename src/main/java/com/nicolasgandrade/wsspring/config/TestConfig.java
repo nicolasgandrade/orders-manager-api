@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.nicolasgandrade.wsspring.entities.Category;
 import com.nicolasgandrade.wsspring.entities.Order;
+import com.nicolasgandrade.wsspring.entities.OrderItem;
 import com.nicolasgandrade.wsspring.entities.Product;
 import com.nicolasgandrade.wsspring.entities.User;
 import com.nicolasgandrade.wsspring.entities.enums.OrderStatus;
 import com.nicolasgandrade.wsspring.repositories.CategoryRepository;
+import com.nicolasgandrade.wsspring.repositories.OrderItemRepository;
 import com.nicolasgandrade.wsspring.repositories.OrderRepository;
 import com.nicolasgandrade.wsspring.repositories.ProductRepository;
 import com.nicolasgandrade.wsspring.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	//Executa o código assim que a aplicação for iniciada
 	@Override
@@ -77,6 +82,12 @@ public class TestConfig implements CommandLineRunner{
 		//Recebe uma lista dos objetos a serem salvos; A lista está sendo criada inline;
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o2, p2, 4, p2.getPrice());
+		OrderItem oi3 = new OrderItem(o3, p3, 1, p3.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
 	}
 
 }
