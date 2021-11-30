@@ -20,10 +20,14 @@ public class UserService {
 		return repository.findAll();
 	}
 	
-	//Operação que encontra usuários pelo ID
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
 		return obj.get();
+	}
+	
+	//Insere um user no banco
+	public User insert(User obj) {
+		return repository.save(obj);
 	}
 	
 }
