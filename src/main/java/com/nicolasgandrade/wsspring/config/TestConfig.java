@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.nicolasgandrade.wsspring.entities.Category;
 import com.nicolasgandrade.wsspring.entities.Order;
 import com.nicolasgandrade.wsspring.entities.OrderItem;
+import com.nicolasgandrade.wsspring.entities.Payment;
 import com.nicolasgandrade.wsspring.entities.Product;
 import com.nicolasgandrade.wsspring.entities.User;
 import com.nicolasgandrade.wsspring.entities.enums.OrderStatus;
@@ -88,6 +89,15 @@ public class TestConfig implements CommandLineRunner{
 		OrderItem oi3 = new OrderItem(o3, p3, 1, p3.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2021-11-28T16:36:02Z"), o2);
+		Payment pay2 = new Payment(null, Instant.parse("2021-11-29T15:36:02Z"), o3);
+		
+		o2.setPayment(pay1);
+		orderRepository.save(o2);
+		
+		o3.setPayment(pay2);
+		orderRepository.save(o3);
 	}
 
 }
