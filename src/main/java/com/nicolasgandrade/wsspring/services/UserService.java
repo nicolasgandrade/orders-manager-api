@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nicolasgandrade.wsspring.entities.User;
 import com.nicolasgandrade.wsspring.repositories.UserRepository;
+import com.nicolasgandrade.wsspring.services.exceptions.ResourceNotFoundException;
 
 @Service //Registra a classe como um componente e permite que seja injetada com Autowired
 public class UserService {
@@ -22,7 +23,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
